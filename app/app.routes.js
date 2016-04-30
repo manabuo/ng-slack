@@ -4,15 +4,15 @@ function config($stateProvider, $urlRouterProvider) {
    $stateProvider
       .state('home', {
          url: '/',
-         templateUrl: 'home/home.html'
+         templateUrl: 'components/home/home.html'
       })
       .state('login', {
          url: '/login',
-         templateUrl: 'auth/login.html'
+         templateUrl: 'components/auth/login.html'
       })
       .state('register', {
          url: '/register',
-         templateUrl: 'auth/register.html'
+         templateUrl: 'components/auth/register.html'
       });
 
    $urlRouterProvider.otherwise('/');

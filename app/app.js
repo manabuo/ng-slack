@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular';
 import appRoutes from './app.routes';
 import appLibraries from './app.libraries';

@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:3000/assets/00a88147a0eb48284954";
+/******/ 	__webpack_require__.p = "http://localhost:3000/assets/f0928459aa9edcd36b7d";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -5357,13 +5357,13 @@
 	function config($stateProvider, $urlRouterProvider) {
 	   $stateProvider.state('home', {
 	      url: '/',
-	      templateUrl: 'home/home.html'
+	      templateUrl: 'components/home/home.html'
 	   }).state('login', {
 	      url: '/login',
-	      templateUrl: 'auth/login.html'
+	      templateUrl: 'components/auth/login.html'
 	   }).state('register', {
 	      url: '/register',
-	      templateUrl: 'auth/register.html'
+	      templateUrl: 'components/auth/register.html'
 	   });
 
 	   $urlRouterProvider.otherwise('/');
@@ -5407,10 +5407,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('angularMD5');
-	console.log(_angularMd2.default);
-
-	var appLibraries = _angular2.default.module('app.libraries', [_angularAnimate2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _angularfire2.default]);
+	var appLibraries = _angular2.default.module('app.libraries', [_angularAnimate2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _angularfire2.default, _angularMd2.default]);
 
 	exports.default = appLibraries;
 
