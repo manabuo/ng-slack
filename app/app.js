@@ -1,34 +1,15 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name angularfireSlackApp
- * @description
- * # angularfireSlackApp
- *
- * Main module of the application.
- */
-angular
-  .module('angularfireSlackApp', [
-    'firebase',
-    'angular-md5',
-    'ui.router'
-  ])
-  .config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'home/home.html'
-      })
-      .state('login', {
-        url: '/login',
-        templateUrl: 'auth/login.html'
-      })
-      .state('register', {
-        url: '/register',
-        templateUrl: 'auth/register.html'
-      });
+import angular from 'angular';
+import appRoutes from './app.routes';
+import appLibraries from './app.libraries';
 
-    $urlRouterProvider.otherwise('/');
-  })
-  .constant('FirebaseUrl', 'https://slack.firebaseio.com/');
+angular.module('app', [
+      appLibraries.name
+   ])
+   .config(appRoutes)
+   .constant('FIREBASE_URL', 'https://slack.firebaseio.com/');
+
+angular.bootstrap(document, ['app'], {
+   strictDi: true
+});
