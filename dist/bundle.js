@@ -23997,7 +23997,25 @@
 /* 210 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var AuthService = function AuthService($q, $firebaseAuth, FIREBASE_URL) {
+	   _classCallCheck(this, AuthService);
+
+	   var ref = new Firebase(FIREBASE_URL);
+
+	   return $firebaseAuth(ref);
+	};
+
+	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
+
+	exports.default = AuthService;
 
 /***/ }
 /******/ ]);
