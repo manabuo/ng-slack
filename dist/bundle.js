@@ -23937,10 +23937,30 @@
 	function config($stateProvider) {
 	   $stateProvider.state('login', {
 	      url: '/login',
-	      template: '<login></login>'
+	      template: '<login></login>',
+	      resolve: {
+	         currentAuth: ['LoginService', '$state', function (LoginService, $state) {
+	            // if the user is logged in, redirect to 'home'
+	            return LoginService.$requireAuth().then(function (auth) {
+	               $state.go('home');
+	            }, function (error) {
+	               return error;
+	            });
+	         }]
+	      }
 	   }).state('register', {
 	      url: '/register',
-	      template: '<register></register>'
+	      template: '<register></register>',
+	      resolve: {
+	         currentAuth: ['LoginService', '$state', function (LoginService, $state) {
+	            // if the user is logged in, redirect to 'home'
+	            return LoginService.$requireAuth().then(function (auth) {
+	               $state.go('home');
+	            }, function (error) {
+	               return error;
+	            });
+	         }]
+	      }
 	   });
 	}
 
@@ -24000,6 +24020,8 @@
 	   function LoginController(LoginService, $state) {
 	      _classCallCheck(this, LoginController);
 
+	      console.log('LoginService');
+	      console.dir(LoginService);
 	      this.LoginService = LoginService;
 	      this.$state = $state;
 
@@ -24014,7 +24036,7 @@
 	      value: function login() {
 	         var _this = this;
 
-	         this.LoginService.$loginWithPassword(this.user).then(function (login) {
+	         this.LoginService.$authWithPassword(this.user).then(function (login) {
 	            _this.$state.go('home');
 	         }, function (error) {
 	            return _this.error = error;
@@ -24026,6 +24048,8 @@
 	         var _this2 = this;
 
 	         this.LoginService.$createUser(this.user).then(function (user) {
+	            console.log('user');
+	            console.log(user);
 	            _this2.login();
 	         }, function (error) {
 	            return _this2.error = error;
@@ -24506,7 +24530,7 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /></a> Register</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.register()\">\n      <div class=\"input-group\">\n         <input type=\"email\" class=\"form-control\" placeholder=\"Email\">\n      </div>\n      <div class=\"input-group\">\n         <input type=\"password\" class=\"form-control\" placeholder=\"Password\">\n      </div>\n      <input type=\"submit\" class=\"btn btn-default\" value=\"Register\">\n   </form>\n\n</div>\n";
+	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /></a> Register</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.register()\">\n      <div class=\"input-group\">\n         <input type=\"email\"\n                ng-model=\"$ctrl.user.email\"\n                class=\"form-control\"\n                placeholder=\"Email\">\n      </div>\n      <div class=\"input-group\">\n         <input type=\"password\"\n                ng-model=\"$ctrl.user.password\"\n                class=\"form-control\"\n                placeholder=\"Password\">\n      </div>\n      <input type=\"submit\"\n             class=\"btn btn-default\"\n             value=\"Register\">\n   </form>\n\n   <aside ng-if=\"$ctrl.error\">\n      <span ng-bind=\"$ctrl.error\"></span>\n   </aside>\n\n</div>\n";
 
 /***/ }
 /******/ ]);
