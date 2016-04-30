@@ -6,10 +6,22 @@ let path = require('path'),
 
 module.exports = {
    context: __dirname,
-   entry: [
-      'babel-polyfill',
-      './app/app.js'
-   ],
+   entry: {
+      app: [
+         'babel-polyfill',
+         './app/app.js'
+      ],
+      'vendors': [
+
+         'angular-animate',
+         'angular-aria',
+         'angular-jwt',
+         'angular-sanitize',
+         'bootstrap',
+         'angular-ui-router',
+         'core-js'
+      ]
+   },
    devtools: 'source-map',
    output: {
       //publicPath: '/',
@@ -50,9 +62,16 @@ module.exports = {
       ]
    },
    plugins: [
-      //new webpack.optimize.CommonsChunkPlugin('common.js')
+      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      // Limit the maximum chunk count
+      new webpack.optimize.LimitChunkCountPlugin({maxChunks: 10}),
+      // Limit the minimum chunk size
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 3000})
    ],
    externals: {
-      angular: true
+      angular: true,
+      'core-js': true
    }
 };
