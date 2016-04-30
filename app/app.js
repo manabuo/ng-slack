@@ -10,7 +10,7 @@ angular.module('app', [
       shared.name
    ])
    .config(appRoutes)
-   .constant('FIREBASE_URL', 'https://slack.firebaseio.com/');
+   .constant('FIREBASE_URL', 'https://ng-slack.firebaseio.com/');
 
 angular.bootstrap(document, ['app'], {
    strictDi: true

@@ -1,22 +1,22 @@
-import loginModule from './home';
+import homeModule from './home';
 import uiRouter from 'angular-ui-router';
 
 describe('Home component', () => {
 
    beforeEach(window.module(uiRouter));
-   beforeEach(window.module(loginModule.name));
+   beforeEach(window.module(homeModule.name));
 
-   let component, $rootScope, $scope, $controller;
+   let component, $rootScope, $scope, $componentController;
 
-   beforeEach(inject((_$controller_, _$rootScope_) => {
+   beforeEach(inject((_$componentController_, _$rootScope_) => {
       $rootScope = _$rootScope_;
-      $controller = _$controller_;
+      $componentController = _$componentController_;
       $scope = $rootScope.$new();
-      component = $controller('HomeController', {$scope});
+      component = $componentController('home', null);
    }));
 
-   it('should have name defined', () => {
-      expect(component.name).toBeDefined();
+   it('should have home component be defined', () => {
+      expect(component).toBeDefined();
    });
 
 });

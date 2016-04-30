@@ -5333,13 +5333,13 @@
 
 	var _components2 = _interopRequireDefault(_components);
 
-	var _shared = __webpack_require__(208);
+	var _shared = __webpack_require__(209);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('app', [_app4.default.name, _components2.default.name, _shared2.default.name]).config(_app2.default).constant('FIREBASE_URL', 'https://slack.firebaseio.com/');
+	_angular2.default.module('app', [_app4.default.name, _components2.default.name, _shared2.default.name]).config(_app2.default).constant('FIREBASE_URL', 'https://ng-slack.firebaseio.com/');
 
 	_angular2.default.bootstrap(document, ['app'], {
 	   strictDi: true
@@ -23904,9 +23904,13 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
+	var _home3 = __webpack_require__(208);
+
+	var _home4 = _interopRequireDefault(_home3);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var homeModule = _angular2.default.module('app.home', []).component('home', _home2.default);
+	var homeModule = _angular2.default.module('app.home', []).component('home', _home2.default).controller('HomeController', _home4.default);
 
 	exports.default = homeModule;
 
@@ -23924,15 +23928,11 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _home3 = __webpack_require__(211);
-
-	var _home4 = _interopRequireDefault(_home3);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var homeComponent = {
 	   template: _home2.default,
-	   controller: _home4.default,
+	   controller: 'HomeController',
 	   bindings: {}
 	};
 
@@ -23952,27 +23952,23 @@
 
 /***/ },
 /* 208 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	   value: true
 	});
 
-	var _angular = __webpack_require__(192);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _angular2 = _interopRequireDefault(_angular);
+	var HomeController = function HomeController() {
+	   _classCallCheck(this, HomeController);
+	};
 
-	var _services = __webpack_require__(209);
+	HomeController.$inject = [];
 
-	var _services2 = _interopRequireDefault(_services);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var sharedModule = _angular2.default.module('app.shared', [_services2.default.name]);
-
-	exports.default = sharedModule;
+	exports.default = HomeController;
 
 /***/ },
 /* 209 */
@@ -23988,7 +23984,31 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _auth = __webpack_require__(210);
+	var _services = __webpack_require__(210);
+
+	var _services2 = _interopRequireDefault(_services);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var sharedModule = _angular2.default.module('app.shared', [_services2.default.name]);
+
+	exports.default = sharedModule;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _auth = __webpack_require__(211);
 
 	var _auth2 = _interopRequireDefault(_auth);
 
@@ -23999,7 +24019,7 @@
 	exports.default = servicesModule;
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24021,28 +24041,6 @@
 	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
 
 	exports.default = AuthService;
-
-/***/ },
-/* 211 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var HomeController = function HomeController() {
-	   _classCallCheck(this, HomeController);
-
-	   this.name = 'home';
-	};
-
-	HomeController.$inject = [];
-
-	exports.default = HomeController;
 
 /***/ }
 /******/ ]);
