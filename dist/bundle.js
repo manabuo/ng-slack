@@ -23924,10 +23924,15 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
+	var _home3 = __webpack_require__(211);
+
+	var _home4 = _interopRequireDefault(_home3);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var homeComponent = {
 	   template: _home2.default,
+	   controller: _home4.default,
 	   bindings: {}
 	};
 
@@ -24016,6 +24021,28 @@
 	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
 
 	exports.default = AuthService;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var HomeController = function HomeController() {
+	   _classCallCheck(this, HomeController);
+
+	   this.name = 'home';
+	};
+
+	HomeController.$inject = [];
+
+	exports.default = HomeController;
 
 /***/ }
 /******/ ]);
