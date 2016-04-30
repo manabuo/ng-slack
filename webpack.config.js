@@ -10,7 +10,7 @@ module.exports = {
       app: [
          'babel-polyfill',
          './app/app.js'
-      ],
+      ]/*,
       'vendors': [
 
          'angular-animate',
@@ -20,7 +20,7 @@ module.exports = {
          'bootstrap',
          'angular-ui-router',
          'core-js'
-      ]
+      ]*/
    },
    devtools: 'source-map',
    output: {
@@ -62,16 +62,15 @@ module.exports = {
       ]
    },
    plugins: [
-      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+     /* new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
       // Limit the maximum chunk count
       new webpack.optimize.LimitChunkCountPlugin({maxChunks: 10}),
       // Limit the minimum chunk size
-      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 3000})
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 3000})*/
    ],
    externals: {
-      angular: true,
-      'core-js': true
+      angular: true
    }
 };

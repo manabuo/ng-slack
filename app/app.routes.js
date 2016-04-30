@@ -5,16 +5,7 @@ function config($stateProvider, $urlRouterProvider) {
       .state('home', {
          url: '/',
          template: '<home></home>'
-      })
-      .state('login', {
-         url: '/login',
-         template: `<login></login>`
-      })
-      .state('register', {
-         url: '/register',
-         templateUrl: 'components/login/register.html'
       });
-
    $urlRouterProvider.otherwise('/');
 }
 
