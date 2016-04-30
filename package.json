@@ -74,6 +74,7 @@
     "bootstrap": "3.3.6",
     "dragular": "4.1.0",
     "flat-ui": "2.1.1",
-    "font-awesome": "4.6.1"
+    "font-awesome": "4.6.1",
+    "oclazyload": "1.0.9"
   }
 }
