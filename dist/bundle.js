@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:3000/assets/f0928459aa9edcd36b7d";
+/******/ 	__webpack_require__.p = "/home/blackend/WebstormProjects/ng-slack/app";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -5329,9 +5329,13 @@
 
 	var _app4 = _interopRequireDefault(_app3);
 
+	var _components = __webpack_require__(203);
+
+	var _components2 = _interopRequireDefault(_components);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('app', [_app4.default.name]).config(_app2.default).constant('FIREBASE_URL', 'https://slack.firebaseio.com/');
+	_angular2.default.module('app', [_app4.default.name, _components2.default.name]).config(_app2.default).constant('FIREBASE_URL', 'https://slack.firebaseio.com/');
 
 	_angular2.default.bootstrap(document, ['app'], {
 	   strictDi: true
@@ -5357,7 +5361,7 @@
 	function config($stateProvider, $urlRouterProvider) {
 	   $stateProvider.state('home', {
 	      url: '/',
-	      templateUrl: 'components/home/home.html'
+	      template: '<home></home>'
 	   }).state('login', {
 	      url: '/login',
 	      templateUrl: 'components/auth/login.html'
@@ -23853,6 +23857,89 @@
 	    return md5;
 	  } ]);
 	})(angular);
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _home = __webpack_require__(204);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var componentModule = _angular2.default.module('app.components', [_home2.default.name]);
+
+	exports.default = componentModule;
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _home = __webpack_require__(205);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var homeModule = _angular2.default.module('app.home', []).component('home', _home2.default);
+
+	exports.default = homeModule;
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _home = __webpack_require__(206);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var homeComponent = {
+	   template: _home2.default,
+	   bindings: {}
+	};
+
+	exports.default = homeComponent;
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"page-wrapper\">\n\n  <div class=\"page-header\">\n    <h1><img class=\"logo-img\" src=\"" + __webpack_require__(207) + "\" /> Welcome to ng-Slack</h1>\n  </div>\n\n  <p class=\"text-center\">\n    <a ui-sref=\"login\" class=\"btn btn-lg btn-default\">Login</a> or <a ui-sref=\"register\" class=\"btn btn-lg btn-primary\">Register</a>\n  </p>\n\n</div>\n";
+
+/***/ },
+/* 207 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MDRCOTRGREYxMTkxMUU0OEQyQzg5MUFFREI1NDQwRSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MDRCOTRGRUYxMTkxMUU0OEQyQzg5MUFFREI1NDQwRSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYwNEI5NEZCRjExOTExRTQ4RDJDODkxQUVEQjU0NDBFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYwNEI5NEZDRjExOTExRTQ4RDJDODkxQUVEQjU0NDBFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+N+1H/AAAAwBQTFRF0Y4V3YkA+pQE+ZUK6rRc9ZhE9n0E1JAX/OrS9tis1JEX+qw9/u7Z7L905Z4y5Jsq4pop/Nei+eG+3Jkd+qEm96xr/MyL4psq+eTE7LFY+92//fLk45kj03UG2XcK8ZED/OjN+ngT2Jca/vny+q5E9ZM99nkS+cSO/XkU2XgK+pMD/vr0/LBJ66xM/MqG/fDd1HcJ9ncC45UY+nkV9dKd6KdW46I167xw5Zcd8cOA+nYS/vfu94gW7rZi+ZMF9dWi//369H4a2ZQe43cL+o8G5KlE550s8MyQ+buD8cJ72psd9XcB7cN6/JQG4aU89oUi+bN2+HUO1pMY/JgG+Z0a4YwC83UA6nkP3Zwf3owE93cH2osV/JQD96NW4YsA2Jgb6qhF5Jwu4JIV93gL24MR4pEN+XYR7caD/Naf+9CV048W6Y8G//799tqw/5YH9nYQ9HUB9c6V+ncQ9XcC7rlo/vXn+qk32YAO95A4/ZoI9You95QH+5QD+cmZ3JYb25Ua7pEF4o0E+nUR/vPo4Jwn/JQC99an9dep89an78qN+IUF540C+8Bt+HgR/HYS13gJ5Zsr+HgP+HoT8XkR13UG+5QG+XkT5Jsp25gb2pgb4o4F2pcb25cb+XkS+XgS+5UG45op+XgT2JUa+pQG4Y4F2pYa3XgL/JYI2p0e5psr5Zws+HgS+pQI3pci5p0v4Jgl9pg1+7pg2Zca9uLB+cCK+5MD5poo2JUZ2JYa4J4q14AQ6aU/9MyR+8iU/d+35a1M+sui6qZA5Zsp9HUC544F9qg4+aUw+5YE57Zk8JQP4Zoq+7RQ2pga4Zge+HkT+LqA05AX94UF/e7h8b1y9o4y+7V82ZMd45wu/XgT+HUU57JX57JY99Sh++/d/OrZ+r9t/ezc5rBI93oV/ODG9n0V+NKk+pUG88eH/5UE969vz4wS/vv4955Q5p0t+LFv+HcR9ZA064Yk5Joo46As5Zoo+Nuz+9i3+Nyz/d2x/ZUG97+I9t64+9Wz2pYb93sT////RzGgCwAAAQB0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AFP3ByUAAAVzSURBVHja7Jd7VBRVHMfXxeWxPGZlfeCDjVkQAUVZlrQGRUUkBVEDRVaRlRSUDRATNRUfiO9HbLS7s+PsCxd8oGJtrmmmdbK0hyW9rbQsSyMii04PKtnuvTPrwh8zerZzOqdz/PEPDPv97P3+7u/3u3cErn8ZgvuA/wPgbF+fWVGh3gP6pDjzrVUpfbwFBB3J14PY4jPKS0D/OKjXW51LvASMvIAAeudKb1eQwgCqjgTdG6Dss8mfl3XPgb2KXcJI8FfylXHx437lAwTTDppSB3d7EuiE8qzO70a4ygY2d9gwjJzKDUg6qTYajRT9SM8sdpYfWPvA402FQI2RGGZbxgmYfNIEAepTkR4PWUhdreqVGELCwEhJPBdg+GaHCRFuB3genodqVUNDQVETxhCwkOEcgNLRcqg3GuXuLCRfGfNQL1XDXhDVs4cUkgjBvQJXsINiAJuhh7aA+BO2T4ZUV+9FUcB4wDAJdw4CaAigjNKLoa6ycYc6JODjTUUFDGB2kRamUGLj2QXXdAiQSuns6ac7mJSTzYkFzBKgB8yGLdjKVweVDqDel+0naBmgZVJGFro9NPR6LKT3SzX8lRjaCNQajZ9YcDSd0ZOMhwaVavauN6/erZRDK8UCjR8IsSC1nV0BGZJYANSvbVzbWR7EB4i8Ujla2/SxQCyGhBY/m5bd9cIhql0b11rLO7NQP3ABfj9hA2lrPyZAeuihHW2Z7dUFSa87yzutsKH6lnICwjokcMlaUqxhAanp2ABJR/PDEaWu/luYjtTbIzgB8W/BKiex9FRmCeIWje3QoQ9CUdEG+bA9LRzJCQhhU5Z+TIBSoNFo3hh1p+RXxrFjJZAPABdAajHgQaMRZ++jp3k+VBLn9hDEBTgtIRkP7anfQ7VUSp3y9NwKtwc98jBoSr/WM5E9AcskA0DpgqQvGJgNqtFopCn6ec/XRKG5pM/PCXT5X5oRbcHxw0Mn9NzGqTYbaWseuNXV9osaDgWalvfudrwI9UJrzuoDaWM//LqYwHGDAd80/1rPQgq7eTMpGf6yGLW0yURLV3hGzSyo3umbmzsXiFEQ0cc5xnqYCREoit7mefg2UJ/LrVBkKgwGMwLgln5c58J0NTuX7nh4f8rYCqBWKJYrMp9WGsxmCwDsaeUCBDfC7zcaHYyHyD9FE289ujwTqEFkLlQyFjZ9c4YLENZIwSxSVMZ417XjorpbIGvKuZkKFMuRB5wgln7LebSVjlabaCojL2/fgzOjb6GcG5QLWQD0QBD1XaIveM7GxXKg3jBvlU4XfRkl3WxQmoEHZKJi7qddP71Sw3u4+h8EaplOJ0uYE8NumoH1AHLpO6zmLqdz8rpFCUAti41NmBSDm1kA8FCRe853Z1qOP+/xPvi3H7qemhQO5OCnVhbtXgL+REWu73tpB1bnCHfzANr6db1bTMQ8UwvlAAI81JvrLThRfFj0LFTfEOqrznMDJgwlCFjndfsTYlFADyAOr/lxkGtJzoUbVhB6+1lOwCUCJR2PmcMCamVLL9etmXmd7Wkrui/FPccJeJIARVpvMEAPIGQyXfjPH12f4O4Hdqzkj+ACRM4gLEzGlPsTgFoXu0jTraf/EDIAaxTfChDAEjMnXFe7at76vINSz6aN8gFjxQ6ufJwrcA0rBjmox3FCOfHFeRvy8jJAT2/3/Hu3M8tu11el9OfextalBE7smSj62/XVQSkF+omixnTbJHDjsjrjvuQrpGEi0fx1cDBNO0nBwUKrTd1P1JLAqJUl93bRjLhNw7FkougkL6/7LzuYuUTt8BKwg7kvUY5lXgKumtTAAHXx6GBv31i2vyCnKHnjNu9feQLeMa3f/Nf9177/APCPAAMAhIajDGySAE4AAAAASUVORK5CYII="
 
 /***/ }
 /******/ ]);

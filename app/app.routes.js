@@ -4,7 +4,7 @@ function config($stateProvider, $urlRouterProvider) {
    $stateProvider
       .state('home', {
          url: '/',
-         templateUrl: 'components/home/home.html'
+         template: '<home></home>'
       })
       .state('login', {
          url: '/login',
