@@ -8,11 +8,11 @@ function config($stateProvider, $urlRouterProvider) {
       })
       .state('login', {
          url: '/login',
-         templateUrl: 'components/auth/login.html'
+         template: `<login></login>`
       })
       .state('register', {
          url: '/register',
-         templateUrl: 'components/auth/register.html'
+         templateUrl: 'components/login/register.html'
       });
 
    $urlRouterProvider.otherwise('/');
