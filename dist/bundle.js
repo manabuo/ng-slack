@@ -24204,7 +24204,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var profileModule = _angular2.default.module('profile', []).config(_profile2.default).component('profile', _profile4.default).controller('ProfileController', _profile6.default).service('ProfileService', _profile8.default);
+	var profileModule = _angular2.default.module('app.components.profile', []).config(_profile2.default).component('profile', _profile4.default).controller('ProfileController', _profile6.default).service('ProfileService', _profile8.default);
 
 	exports.default = profileModule;
 
