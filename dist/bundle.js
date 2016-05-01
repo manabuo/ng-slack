@@ -24282,7 +24282,7 @@
 /* 219 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n   <h1>{{ $ctrl.name }}</h1>\n</div>\n";
+	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1>Edit Profile</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.updateProfile()\">\n      <p ng-hide=\"$ctrl.profile.displayName\">\n         You'll need a display name before you can start chatting.\n      </p>\n\n      <div class=\"input-group\">\n         <input required type=\"text\"\n                class=\"form-control\"\n                placeholder=\"Display Name\"\n                ng-model=\"$ctrl.profile.displayName\">\n      </div>\n      <input type=\"submit\"\n             class=\"btn btn-default\"\n             value=\"Set Display Name\">\n   </form>\n\n</div>\n";
 
 /***/ },
 /* 220 */
@@ -24653,11 +24653,17 @@
 	      _classCallCheck(this, ProfileController);
 
 	      this.name = 'profile';
+	      this.md5 = md5;
+	      console.log('this');
+	      console.log(this);
 	   }
 
 	   _createClass(ProfileController, [{
 	      key: 'updateProfile',
-	      value: function updateProfile() {}
+	      value: function updateProfile() {
+	         this.profile.emailHash = this.md5.createHash(this.auth.password.email);
+	         this.profile.$save();
+	      }
 	   }]);
 
 	   return ProfileController;
