@@ -1,17 +1,20 @@
 import Firebase from 'firebase';
 
+let _$firebaseObject = new WeakMap();
+
 class ProfileService {
 
    constructor($q, $firebaseAuth, $firebaseArray, $firebaseObject, FIREBASE_URL) {
 
-      this.$firebaseObject = $firebaseObject;
+      _$firebaseObject.set(this, $firebaseObject);
       this.usersRef = new Firebase(FIREBASE_URL + 'users');
       this.users    = $firebaseArray(this.usersRef);
 
    }
 
    getProfile(uid) {
-      return this.$firebaseObject(this.usersRef.child(uid));
+      let $firebaseObject = _$firebaseObject.get(this);
+      return $firebaseObject(this.usersRef.child(uid));
    }
 
    getDisplayName(uid) {

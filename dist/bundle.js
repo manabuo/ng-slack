@@ -24687,11 +24687,13 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var _$firebaseObject = new WeakMap();
+
 	var ProfileService = function () {
 	   function ProfileService($q, $firebaseAuth, $firebaseArray, $firebaseObject, FIREBASE_URL) {
 	      _classCallCheck(this, ProfileService);
 
-	      this.$firebaseObject = $firebaseObject;
+	      _$firebaseObject.set(this, $firebaseObject);
 	      this.usersRef = new _firebase2.default(FIREBASE_URL + 'users');
 	      this.users = $firebaseArray(this.usersRef);
 	   }
@@ -24699,7 +24701,8 @@
 	   _createClass(ProfileService, [{
 	      key: 'getProfile',
 	      value: function getProfile(uid) {
-	         return this.$firebaseObject(this.usersRef.child(uid));
+	         var $firebaseObject = _$firebaseObject.get(this);
+	         return $firebaseObject(this.usersRef.child(uid));
 	      }
 	   }, {
 	      key: 'getDisplayName',
