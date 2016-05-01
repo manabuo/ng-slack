@@ -1,6 +1,6 @@
 import Firebase from 'firebase';
 
-class LoginService {
+class AuthService {
 
    constructor($q, $firebaseAuth, FIREBASE_URL) {
 
@@ -12,6 +12,6 @@ class LoginService {
 
 }
 
-LoginService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
+AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
 
-export default LoginService;
+export default AuthService;

@@ -6,9 +6,9 @@ function config($stateProvider) {
          url: '/login',
          template: `<login></login>`,
          resolve: {
-            currentAuth: ['LoginService', '$state', (LoginService, $state) => {
+            currentAuth: ['AuthService', '$state', (AuthService, $state) => {
                // if the user is logged in, redirect to 'home'
-               return LoginService.$requireAuth().then(auth => {
+               return AuthService.$requireAuth().then(auth => {
                   $state.go('home');
                }, error => error);
             }]
@@ -18,9 +18,9 @@ function config($stateProvider) {
          url: '/register',
          template: `<register></register>`,
          resolve: {
-            currentAuth: ['LoginService', '$state', (LoginService, $state) => {
+            currentAuth: ['AuthService', '$state', (AuthService, $state) => {
                // if the user is logged in, redirect to 'home'
-               return LoginService.$requireAuth().then(auth => {
+               return AuthService.$requireAuth().then(auth => {
                   $state.go('home');
                }, error => error);
             }]

@@ -1,9 +1,9 @@
 class LoginController {
 
-   constructor(LoginService, $state) {
-      console.log('LoginService');
-      console.dir(LoginService);
-      this.LoginService = LoginService;
+   constructor(AuthService, $state) {
+      console.log('AuthService');
+      console.dir(AuthService);
+      this.AuthService = AuthService;
       this.$state = $state;
 
       this.user = {
@@ -14,13 +14,13 @@ class LoginController {
    }
 
    login() {
-      this.LoginService.$authWithPassword(this.user).then(login => {
+      this.AuthService.$authWithPassword(this.user).then(login => {
          this.$state.go('home');
       }, error => this.error = error);
    }
 
    register() {
-      this.LoginService.$createUser(this.user).then(user => {
+      this.AuthService.$createUser(this.user).then(user => {
          console.log('user');
          console.log(user);
          this.login();
@@ -29,7 +29,7 @@ class LoginController {
 
 }
 
-LoginController.$inject = ['LoginService', '$state'];
+LoginController.$inject = ['AuthService', '$state'];
 
 export default LoginController;
 

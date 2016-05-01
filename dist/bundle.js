@@ -5333,7 +5333,7 @@
 
 	var _components2 = _interopRequireDefault(_components);
 
-	var _shared = __webpack_require__(228);
+	var _shared = __webpack_require__(227);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
@@ -23873,11 +23873,11 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
-	var _home = __webpack_require__(214);
+	var _home = __webpack_require__(212);
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _profile = __webpack_require__(218);
+	var _profile = __webpack_require__(216);
 
 	var _profile2 = _interopRequireDefault(_profile);
 
@@ -23913,17 +23913,13 @@
 
 	var _login6 = _interopRequireDefault(_login5);
 
-	var _login7 = __webpack_require__(210);
-
-	var _login8 = _interopRequireDefault(_login7);
-
-	var _register = __webpack_require__(212);
+	var _register = __webpack_require__(210);
 
 	var _register2 = _interopRequireDefault(_register);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var loginModule = _angular2.default.module('app.login', []).config(_login2.default).component('login', _login4.default).component('register', _register2.default).controller('LoginController', _login6.default).service('LoginService', _login8.default);
+	var loginModule = _angular2.default.module('app.login', []).config(_login2.default).component('login', _login4.default).component('register', _register2.default).controller('LoginController', _login6.default);
 
 	exports.default = loginModule;
 
@@ -23943,9 +23939,9 @@
 	      url: '/login',
 	      template: '<login></login>',
 	      resolve: {
-	         currentAuth: ['LoginService', '$state', function (LoginService, $state) {
+	         currentAuth: ['AuthService', '$state', function (AuthService, $state) {
 	            // if the user is logged in, redirect to 'home'
-	            return LoginService.$requireAuth().then(function (auth) {
+	            return AuthService.$requireAuth().then(function (auth) {
 	               $state.go('home');
 	            }, function (error) {
 	               return error;
@@ -23956,9 +23952,9 @@
 	      url: '/register',
 	      template: '<register></register>',
 	      resolve: {
-	         currentAuth: ['LoginService', '$state', function (LoginService, $state) {
+	         currentAuth: ['AuthService', '$state', function (AuthService, $state) {
 	            // if the user is logged in, redirect to 'home'
-	            return LoginService.$requireAuth().then(function (auth) {
+	            return AuthService.$requireAuth().then(function (auth) {
 	               $state.go('home');
 	            }, function (error) {
 	               return error;
@@ -24021,12 +24017,12 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var LoginController = function () {
-	   function LoginController(LoginService, $state) {
+	   function LoginController(AuthService, $state) {
 	      _classCallCheck(this, LoginController);
 
-	      console.log('LoginService');
-	      console.dir(LoginService);
-	      this.LoginService = LoginService;
+	      console.log('AuthService');
+	      console.dir(AuthService);
+	      this.AuthService = AuthService;
 	      this.$state = $state;
 
 	      this.user = {
@@ -24040,7 +24036,7 @@
 	      value: function login() {
 	         var _this = this;
 
-	         this.LoginService.$authWithPassword(this.user).then(function (login) {
+	         this.AuthService.$authWithPassword(this.user).then(function (login) {
 	            _this.$state.go('home');
 	         }, function (error) {
 	            return _this.error = error;
@@ -24051,7 +24047,7 @@
 	      value: function register() {
 	         var _this2 = this;
 
-	         this.LoginService.$createUser(this.user).then(function (user) {
+	         this.AuthService.$createUser(this.user).then(function (user) {
 	            console.log('user');
 	            console.log(user);
 	            _this2.login();
@@ -24064,7 +24060,7 @@
 	   return LoginController;
 	}();
 
-	LoginController.$inject = ['LoginService', '$state'];
+	LoginController.$inject = ['AuthService', '$state'];
 
 	exports.default = LoginController;
 
@@ -24078,7 +24074,612 @@
 	   value: true
 	});
 
-	var _firebase = __webpack_require__(211);
+	var _register = __webpack_require__(211);
+
+	var _register2 = _interopRequireDefault(_register);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var registerComponent = {
+	   template: _register2.default,
+	   controller: 'LoginController',
+	   bindings: {}
+	};
+
+	exports.default = registerComponent;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /></a> Register</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.register()\">\n      <div class=\"input-group\">\n         <input type=\"email\"\n                ng-model=\"$ctrl.user.email\"\n                class=\"form-control\"\n                placeholder=\"Email\">\n      </div>\n      <div class=\"input-group\">\n         <input type=\"password\"\n                ng-model=\"$ctrl.user.password\"\n                class=\"form-control\"\n                placeholder=\"Password\">\n      </div>\n      <input type=\"submit\"\n             class=\"btn btn-default\"\n             value=\"Register\">\n   </form>\n\n   <aside ng-if=\"$ctrl.error\">\n      <span ng-bind=\"$ctrl.error\"></span>\n   </aside>\n\n</div>\n";
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _home = __webpack_require__(213);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	var _home3 = __webpack_require__(215);
+
+	var _home4 = _interopRequireDefault(_home3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var homeModule = _angular2.default.module('app.home', []).component('home', _home2.default).controller('HomeController', _home4.default);
+
+	exports.default = homeModule;
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _home = __webpack_require__(214);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var homeComponent = {
+	   template: _home2.default,
+	   controller: 'HomeController',
+	   bindings: {}
+	};
+
+	exports.default = homeComponent;
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"page-wrapper\">\n\n  <div class=\"page-header\">\n    <h1><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /> Welcome to ng-Slack</h1>\n  </div>\n\n  <p class=\"text-center\">\n    <a ui-sref=\"login\" class=\"btn btn-lg btn-default\">Login</a> or <a ui-sref=\"register\" class=\"btn btn-lg btn-primary\">Register</a>\n  </p>\n\n</div>\n";
+
+/***/ },
+/* 215 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var HomeController = function HomeController() {
+	   _classCallCheck(this, HomeController);
+	};
+
+	HomeController.$inject = [];
+
+	exports.default = HomeController;
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _profile = __webpack_require__(217);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _profile3 = __webpack_require__(218);
+
+	var _profile4 = _interopRequireDefault(_profile3);
+
+	var _profile5 = __webpack_require__(224);
+
+	var _profile6 = _interopRequireDefault(_profile5);
+
+	var _profile7 = __webpack_require__(225);
+
+	var _profile8 = _interopRequireDefault(_profile7);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var profileModule = _angular2.default.module('profile', []).config(_profile2.default).component('profile', _profile4.default).controller('ProfileController', _profile6.default).service('ProfileService', _profile8.default);
+
+	exports.default = profileModule;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+	profileRoutes.$inject = ['$stateProvider'];
+
+	function profileRoutes($stateProvider) {
+
+	   $stateProvider.state('profile', {
+	      url: '/profile',
+	      controller: ['auth', 'profile', function (auth, profile) {
+	         var self = this;
+	         self.auth = auth;
+	         self.profile = profile;
+	      }],
+	      controllerAs: '$ctrl',
+	      template: '<profile auth="$ctrl.auth" profile="$ctrl.profile"></profile>',
+	      resolve: {
+	         auth: ['AuthService', '$state', function (AuthService, $state) {
+	            return AuthService.$requireAuth().catch(function (error) {
+	               return $state.go('home');
+	            });
+	         }],
+	         profile: ['AuthService', 'ProfileService', function (AuthService, ProfileService) {
+	            return AuthService.$requireAuth().then(function (auth) {
+	               return ProfileService.getProfile(auth.uid).$loaded();
+	            }, function (error) {
+	               return error;
+	            });
+	         }]
+	      }
+	   });
+	}
+
+	exports.default = profileRoutes;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _profile = __webpack_require__(219);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	__webpack_require__(220);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var profileComponent = {
+	   template: _profile2.default,
+	   controller: 'ProfileController',
+	   bindings: {
+	      auth: '<',
+	      profile: '<'
+	   }
+	};
+
+	exports.default = profileComponent;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n   <h1>{{ $ctrl.name }}</h1>\n</div>\n";
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(221);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(223)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./profile.styl", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./profile.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(222)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".profile {\n  color: #f00;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 222 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 224 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ProfileController = function () {
+	   function ProfileController(ProfileService, $state, md5) {
+	      _classCallCheck(this, ProfileController);
+
+	      this.name = 'profile';
+	   }
+
+	   _createClass(ProfileController, [{
+	      key: 'updateProfile',
+	      value: function updateProfile() {}
+	   }]);
+
+	   return ProfileController;
+	}();
+
+	ProfileController.$inject = ['ProfileService', '$state', 'md5'];
+
+	exports.default = ProfileController;
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _firebase = __webpack_require__(226);
 
 	var _firebase2 = _interopRequireDefault(_firebase);
 
@@ -24086,20 +24687,46 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var LoginService = function LoginService($q, $firebaseAuth, FIREBASE_URL) {
-	   _classCallCheck(this, LoginService);
+	var ProfileService = function () {
+	   function ProfileService($q, $firebaseAuth, $firebaseArray, $firebaseObject, FIREBASE_URL) {
+	      _classCallCheck(this, ProfileService);
 
-	   var ref = new _firebase2.default(FIREBASE_URL);
+	      this.$firebaseObject = $firebaseObject;
+	      this.usersRef = new _firebase2.default(FIREBASE_URL + 'users');
+	      this.users = $firebaseArray(this.usersRef);
+	   }
 
-	   return $firebaseAuth(ref);
-	};
+	   _createClass(ProfileService, [{
+	      key: 'getProfile',
+	      value: function getProfile(uid) {
+	         return this.$firebaseObject(this.usersRef.child(uid));
+	      }
+	   }, {
+	      key: 'getDisplayName',
+	      value: function getDisplayName(uid) {
+	         return this.users.$getRecord(uid).displayName;
+	      }
+	   }, {
+	      key: 'getGravatar',
+	      value: function getGravatar(uid) {
+	         return 'http://www.gravatar.com/avatar' + this.users.$getRecord(uid).emailHash;
+	      }
+	   }, {
+	      key: 'users',
+	      value: function users() {
+	         return this.users;
+	      }
+	   }]);
 
-	LoginService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
+	   return ProfileService;
+	}();
 
-	exports.default = LoginService;
+	ProfileService.$inject = ['$q', '$firebaseAuth', '$firebaseArray', '$firebaseObject', 'FIREBASE_URL'];
+
+	exports.default = ProfileService;
 
 /***/ },
-/* 211 */
+/* 226 */
 /***/ function(module, exports) {
 
 	/*! @license Firebase v2.4.2
@@ -24385,611 +25012,6 @@
 
 
 /***/ },
-/* 212 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _register = __webpack_require__(213);
-
-	var _register2 = _interopRequireDefault(_register);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var registerComponent = {
-	   template: _register2.default,
-	   controller: 'LoginController',
-	   bindings: {}
-	};
-
-	exports.default = registerComponent;
-
-/***/ },
-/* 213 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /></a> Register</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.register()\">\n      <div class=\"input-group\">\n         <input type=\"email\"\n                ng-model=\"$ctrl.user.email\"\n                class=\"form-control\"\n                placeholder=\"Email\">\n      </div>\n      <div class=\"input-group\">\n         <input type=\"password\"\n                ng-model=\"$ctrl.user.password\"\n                class=\"form-control\"\n                placeholder=\"Password\">\n      </div>\n      <input type=\"submit\"\n             class=\"btn btn-default\"\n             value=\"Register\">\n   </form>\n\n   <aside ng-if=\"$ctrl.error\">\n      <span ng-bind=\"$ctrl.error\"></span>\n   </aside>\n\n</div>\n";
-
-/***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _angular = __webpack_require__(192);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _home = __webpack_require__(215);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	var _home3 = __webpack_require__(217);
-
-	var _home4 = _interopRequireDefault(_home3);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var homeModule = _angular2.default.module('app.home', []).component('home', _home2.default).controller('HomeController', _home4.default);
-
-	exports.default = homeModule;
-
-/***/ },
-/* 215 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _home = __webpack_require__(216);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var homeComponent = {
-	   template: _home2.default,
-	   controller: 'HomeController',
-	   bindings: {}
-	};
-
-	exports.default = homeComponent;
-
-/***/ },
-/* 216 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<div class=\"page-wrapper\">\n\n  <div class=\"page-header\">\n    <h1><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /> Welcome to ng-Slack</h1>\n  </div>\n\n  <p class=\"text-center\">\n    <a ui-sref=\"login\" class=\"btn btn-lg btn-default\">Login</a> or <a ui-sref=\"register\" class=\"btn btn-lg btn-primary\">Register</a>\n  </p>\n\n</div>\n";
-
-/***/ },
-/* 217 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var HomeController = function HomeController() {
-	   _classCallCheck(this, HomeController);
-	};
-
-	HomeController.$inject = [];
-
-	exports.default = HomeController;
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _angular = __webpack_require__(192);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _profile = __webpack_require__(219);
-
-	var _profile2 = _interopRequireDefault(_profile);
-
-	var _profile3 = __webpack_require__(220);
-
-	var _profile4 = _interopRequireDefault(_profile3);
-
-	var _profile5 = __webpack_require__(226);
-
-	var _profile6 = _interopRequireDefault(_profile5);
-
-	var _profile7 = __webpack_require__(227);
-
-	var _profile8 = _interopRequireDefault(_profile7);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var profileModule = _angular2.default.module('profile', []).config(_profile2.default).component('profile', _profile4.default).controller('ProfileController', _profile6.default).service('ProfileService', _profile8.default);
-
-	exports.default = profileModule;
-
-/***/ },
-/* 219 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-	profileRoutes.$inject = ['$stateProvider'];
-
-	function profileRoutes($stateProvider) {
-
-	   $stateProvider.state('profile', {
-	      url: '/profile',
-	      controller: ['auth', 'profile', function (auth, profile) {
-	         var self = this;
-	         self.auth = auth;
-	         self.profile = profile;
-	      }],
-	      controllerAs: '$ctrl',
-	      template: '<profile auth="$ctrl.auth" profile="$ctrl.profile"></profile>',
-	      resolve: {
-	         auth: ['LoginService', '$state', function (LoginService, $state) {
-	            return LoginService.$requireAuth().catch(function (error) {
-	               return $state.go('home');
-	            });
-	         }],
-	         profile: ['LoginService', 'ProfileService', function (LoginService, ProfileService) {
-	            return LoginService.$requireAuth().then(function (auth) {
-	               console.log('auth');
-	               console.log(auth);
-	               return ProfileService.getProfile(auth.uid).$loaded();
-	            }, function (error) {
-	               return error;
-	            });
-	         }]
-	      }
-	   });
-	}
-
-	exports.default = profileRoutes;
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _profile = __webpack_require__(221);
-
-	var _profile2 = _interopRequireDefault(_profile);
-
-	__webpack_require__(222);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var profileComponent = {
-	   template: _profile2.default,
-	   controller: 'ProfileController',
-	   bindings: {
-	      auth: '<',
-	      profile: '<'
-	   }
-	};
-
-	exports.default = profileComponent;
-
-/***/ },
-/* 221 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\n   <h1>{{ $ctrl.name }}</h1>\n</div>\n";
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(223);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(225)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./profile.styl", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./profile.styl");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(224)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".profile {\n  color: #f00;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 224 */
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-
-		update(obj);
-
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-
-	var replaceText = (function () {
-		var textStore = [];
-
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-		var sourceMap = obj.sourceMap;
-
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-		var sourceMap = obj.sourceMap;
-
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-
-		var blob = new Blob([css], { type: "text/css" });
-
-		var oldSrc = linkElement.href;
-
-		linkElement.href = URL.createObjectURL(blob);
-
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 226 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var ProfileController = function () {
-	   function ProfileController(ProfileService, $state, md5) {
-	      _classCallCheck(this, ProfileController);
-
-	      this.name = 'profile';
-	   }
-
-	   _createClass(ProfileController, [{
-	      key: 'updateProfile',
-	      value: function updateProfile() {}
-	   }]);
-
-	   return ProfileController;
-	}();
-
-	ProfileController.$inject = ['ProfileService', '$state', 'md5'];
-
-	exports.default = ProfileController;
-
-/***/ },
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24999,53 +25021,19 @@
 	   value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _angular = __webpack_require__(192);
 
-	var _firebase = __webpack_require__(211);
+	var _angular2 = _interopRequireDefault(_angular);
 
-	var _firebase2 = _interopRequireDefault(_firebase);
+	var _services = __webpack_require__(228);
+
+	var _services2 = _interopRequireDefault(_services);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var sharedModule = _angular2.default.module('app.shared', [_services2.default.name]);
 
-	var ProfileService = function () {
-	   function ProfileService($q, $firebaseAuth, $firebaseArray, $firebaseObject, FIREBASE_URL) {
-	      _classCallCheck(this, ProfileService);
-
-	      this.$firebaseObject = $firebaseObject;
-	      this.usersRef = new _firebase2.default(FIREBASE_URL + 'users');
-	      this.users = $firebaseArray(this.usersRef);
-	   }
-
-	   _createClass(ProfileService, [{
-	      key: 'getProfile',
-	      value: function getProfile(uid) {
-	         return this.$firebaseObject(this.usersRef.child(uid));
-	      }
-	   }, {
-	      key: 'getDisplayName',
-	      value: function getDisplayName(uid) {
-	         return this.users.$getRecord(uid).displayName;
-	      }
-	   }, {
-	      key: 'getGravatar',
-	      value: function getGravatar(uid) {
-	         return 'http://www.gravatar.com/avatar' + this.users.$getRecord(uid).emailHash;
-	      }
-	   }, {
-	      key: 'users',
-	      value: function users() {
-	         return this.users;
-	      }
-	   }]);
-
-	   return ProfileService;
-	}();
-
-	ProfileService.$inject = ['$q', '$firebaseAuth', '$firebaseArray', '$firebaseObject', 'FIREBASE_URL'];
-
-	exports.default = ProfileService;
+	exports.default = sharedModule;
 
 /***/ },
 /* 228 */
@@ -25061,15 +25049,15 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _services = __webpack_require__(229);
+	var _auth = __webpack_require__(229);
 
-	var _services2 = _interopRequireDefault(_services);
+	var _auth2 = _interopRequireDefault(_auth);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var sharedModule = _angular2.default.module('app.shared', [_services2.default.name]);
+	var servicesModule = _angular2.default.module('app.shared.services', []).service('AuthService', _auth2.default);
 
-	exports.default = sharedModule;
+	exports.default = servicesModule;
 
 /***/ },
 /* 229 */
@@ -25078,18 +25066,28 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	   value: true
 	});
 
-	var _angular = __webpack_require__(192);
+	var _firebase = __webpack_require__(226);
 
-	var _angular2 = _interopRequireDefault(_angular);
+	var _firebase2 = _interopRequireDefault(_firebase);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var servicesModule = _angular2.default.module('app.shared.services', []);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	exports.default = servicesModule;
+	var AuthService = function AuthService($q, $firebaseAuth, FIREBASE_URL) {
+	   _classCallCheck(this, AuthService);
+
+	   var ref = new _firebase2.default(FIREBASE_URL);
+
+	   return $firebaseAuth(ref);
+	};
+
+	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
+
+	exports.default = AuthService;
 
 /***/ }
 /******/ ]);

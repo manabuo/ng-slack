@@ -13,13 +13,11 @@ function profileRoutes($stateProvider) {
          controllerAs: '$ctrl',
          template: '<profile auth="$ctrl.auth" profile="$ctrl.profile"></profile>',
          resolve: {
-            auth: ['LoginService', '$state', (LoginService, $state) => {
-               return LoginService.$requireAuth().catch((error) => $state.go('home')) ;
+            auth: ['AuthService', '$state', (AuthService, $state) => {
+               return AuthService.$requireAuth().catch((error) => $state.go('home')) ;
             }],
-            profile: ['LoginService', 'ProfileService', (LoginService, ProfileService) => {
-               return LoginService.$requireAuth().then(auth => {
-                  console.log('auth');
-                  console.log(auth);
+            profile: ['AuthService', 'ProfileService', (AuthService, ProfileService) => {
+               return AuthService.$requireAuth().then(auth => {
                  return ProfileService.getProfile(auth.uid).$loaded();
                }, error => error);
             }]

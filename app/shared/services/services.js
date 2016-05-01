@@ -1,5 +1,8 @@
 import angular from 'angular';
 
-let servicesModule = angular.module('app.shared.services', []);
+import AuthService from './auth/auth.service';
+
+let servicesModule = angular.module('app.shared.services', [])
+   .service('AuthService', AuthService);
 
 export default servicesModule;
