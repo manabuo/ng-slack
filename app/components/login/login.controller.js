@@ -27,6 +27,10 @@ class LoginController {
       }, error => this.error = error);
    }
 
+   goBack() {
+      this.$state.go('home');
+   }
+
 }
 
 LoginController.$inject = ['AuthService', '$state'];

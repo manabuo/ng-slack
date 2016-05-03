@@ -23994,7 +23994,7 @@
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"page-wrapper\">\n\n  <div class=\"page-header\">\n    <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /></a> Log In</h1>\n  </div>\n\n  <form ng-submit=\"$ctrl.login()\">\n    <div class=\"input-group\">\n      <input type=\"email\"\n             ng-model=\"$ctrl.user.email\"\n             class=\"form-control\"\n             placeholder=\"Email\">\n    </div>\n    <div class=\"input-group\">\n      <input type=\"password\"\n             ng-model=\"$ctrl.user.password\"\n             class=\"form-control\"\n             placeholder=\"Password\">\n    </div>\n    <input type=\"submit\"\n           class=\"btn btn-default\"\n           value=\"Register\">\n  </form>\n\n  <aside ng-if=\"$ctrl.error\">\n    <span ng-bind=\"$ctrl.error\"></span>\n  </aside>\n\n</div>\n";
+	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><a ui-sref=\"home\"><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\"/></a> Log In</h1>\n   </div>\n\n   <form ng-submit=\"$ctrl.login()\">\n      <div class=\"input-group\">\n         <input type=\"email\"\n                ng-model=\"$ctrl.user.email\"\n                class=\"form-control\"\n                placeholder=\"Email\">\n      </div>\n      <div class=\"input-group\">\n         <input type=\"password\"\n                ng-model=\"$ctrl.user.password\"\n                class=\"form-control\"\n                placeholder=\"Password\">\n      </div>\n      <input type=\"submit\"\n             class=\"btn btn-default\"\n             value=\"Register\">\n\n      <button type=\"button\"\n              class=\"btn btn-default\"\n              ng-click=\"$ctrl.goBack()\">\n         Back\n      </button>\n\n\n   </form>\n\n   <aside ng-if=\"$ctrl.error\">\n      <span ng-bind=\"$ctrl.error\"></span>\n   </aside>\n\n</div>\n";
 
 /***/ },
 /* 208 */
@@ -24054,6 +24054,11 @@
 	         }, function (error) {
 	            return _this2.error = error;
 	         });
+	      }
+	   }, {
+	      key: 'goBack',
+	      value: function goBack() {
+	         this.$state.go('home');
 	      }
 	   }]);
 
