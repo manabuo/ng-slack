@@ -24016,14 +24016,15 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var _baseCtrl = new WeakMap();
+
 	var LoginController = function () {
-	   function LoginController(AuthService, $state) {
+	   function LoginController(AuthService, $scope, $controller) {
 	      _classCallCheck(this, LoginController);
 
-	      console.log('AuthService');
-	      console.dir(AuthService);
+	      var baseCtrl = $controller('BaseController', { $scope: $scope });
 	      this.AuthService = AuthService;
-	      this.$state = $state;
+	      _baseCtrl.set(this, baseCtrl);
 
 	      this.user = {
 	         email: '',
@@ -24036,8 +24037,9 @@
 	      value: function login() {
 	         var _this = this;
 
+	         var baseCtrl = _baseCtrl.get(this);
 	         this.AuthService.$authWithPassword(this.user).then(function (login) {
-	            _this.$state.go('home');
+	            baseCtrl.goBack('home');
 	         }, function (error) {
 	            return _this.error = error;
 	         });
@@ -24058,14 +24060,15 @@
 	   }, {
 	      key: 'goBack',
 	      value: function goBack() {
-	         this.$state.go('home');
+	         var baseCtrl = _baseCtrl.get(this);
+	         baseCtrl.goBack('home');
 	      }
 	   }]);
 
 	   return LoginController;
 	}();
 
-	LoginController.$inject = ['AuthService', '$state'];
+	LoginController.$inject = ['AuthService', '$scope', '$controller'];
 
 	exports.default = LoginController;
 
@@ -25041,13 +25044,17 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
+	var _controllers = __webpack_require__(230);
+
+	var _controllers2 = _interopRequireDefault(_controllers);
+
 	var _services = __webpack_require__(228);
 
 	var _services2 = _interopRequireDefault(_services);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var sharedModule = _angular2.default.module('app.shared', [_services2.default.name]);
+	var sharedModule = _angular2.default.module('app.shared', [_controllers2.default.name, _services2.default.name]);
 
 	exports.default = sharedModule;
 
@@ -25104,6 +25111,70 @@
 	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
 
 	exports.default = AuthService;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _base = __webpack_require__(231);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var controllersModule = _angular2.default.module('app.shared.controller', []).controller('BaseController', _base2.default);
+
+	exports.default = controllersModule;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var _$state = new WeakMap();
+
+	var BaseController = function () {
+	   function BaseController($state) {
+	      _classCallCheck(this, BaseController);
+
+	      _$state.set(this, $state);
+	   }
+
+	   _createClass(BaseController, [{
+	      key: 'goBack',
+	      value: function goBack() {
+	         var state = arguments.length <= 0 || arguments[0] === undefined ? '^' : arguments[0];
+
+	         var $state = _$state.get(this);
+	         $state.go(state);
+	      }
+	   }]);
+
+	   return BaseController;
+	}();
+
+	BaseController.$inject = ['$state'];
+
+	exports.default = BaseController;
 
 /***/ }
 /******/ ]);
