@@ -25049,11 +25049,11 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _controllers = __webpack_require__(230);
+	var _controllers = __webpack_require__(228);
 
 	var _controllers2 = _interopRequireDefault(_controllers);
 
-	var _services = __webpack_require__(228);
+	var _services = __webpack_require__(230);
 
 	var _services2 = _interopRequireDefault(_services);
 
@@ -25077,61 +25077,7 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _auth = __webpack_require__(229);
-
-	var _auth2 = _interopRequireDefault(_auth);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var servicesModule = _angular2.default.module('app.shared.services', []).service('AuthService', _auth2.default);
-
-	exports.default = servicesModule;
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _firebase = __webpack_require__(226);
-
-	var _firebase2 = _interopRequireDefault(_firebase);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var AuthService = function AuthService($q, $firebaseAuth, FIREBASE_URL) {
-	   _classCallCheck(this, AuthService);
-
-	   var ref = new _firebase2.default(FIREBASE_URL);
-
-	   return $firebaseAuth(ref);
-	};
-
-	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
-
-	exports.default = AuthService;
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	   value: true
-	});
-
-	var _angular = __webpack_require__(192);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _base = __webpack_require__(231);
+	var _base = __webpack_require__(229);
 
 	var _base2 = _interopRequireDefault(_base);
 
@@ -25142,7 +25088,7 @@
 	exports.default = controllersModule;
 
 /***/ },
-/* 231 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25180,6 +25126,60 @@
 	BaseController.$inject = ['$state'];
 
 	exports.default = BaseController;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _auth = __webpack_require__(231);
+
+	var _auth2 = _interopRequireDefault(_auth);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var servicesModule = _angular2.default.module('app.shared.services', []).service('AuthService', _auth2.default);
+
+	exports.default = servicesModule;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _firebase = __webpack_require__(226);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var AuthService = function AuthService($q, $firebaseAuth, FIREBASE_URL) {
+	   _classCallCheck(this, AuthService);
+
+	   var ref = new _firebase2.default(FIREBASE_URL);
+
+	   return $firebaseAuth(ref);
+	};
+
+	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
+
+	exports.default = AuthService;
 
 /***/ }
 /******/ ]);
