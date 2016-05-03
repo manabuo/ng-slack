@@ -5333,7 +5333,7 @@
 
 	var _components2 = _interopRequireDefault(_components);
 
-	var _shared = __webpack_require__(227);
+	var _shared = __webpack_require__(234);
 
 	var _shared2 = _interopRequireDefault(_shared);
 
@@ -23881,9 +23881,13 @@
 
 	var _profile2 = _interopRequireDefault(_profile);
 
+	var _channels = __webpack_require__(227);
+
+	var _channels2 = _interopRequireDefault(_channels);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var componentModule = _angular2.default.module('app.components', [_login2.default.name, _home2.default.name, _profile2.default.name]);
+	var componentModule = _angular2.default.module('app.components', [_login2.default.name, _home2.default.name, _profile2.default.name, _channels2.default.name]);
 
 	exports.default = componentModule;
 
@@ -25049,22 +25053,159 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _controllers = __webpack_require__(228);
+	var _channels = __webpack_require__(228);
 
-	var _controllers2 = _interopRequireDefault(_controllers);
+	var _channels2 = _interopRequireDefault(_channels);
 
-	var _services = __webpack_require__(230);
+	var _channels3 = __webpack_require__(229);
 
-	var _services2 = _interopRequireDefault(_services);
+	var _channels4 = _interopRequireDefault(_channels3);
+
+	var _channels5 = __webpack_require__(233);
+
+	var _channels6 = _interopRequireDefault(_channels5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var sharedModule = _angular2.default.module('app.shared', [_controllers2.default.name, _services2.default.name]);
+	var channelsModule = _angular2.default.module('channels', []).config(_channels2.default).component('channels', _channels4.default).controller('ChannelsController', _channels6.default);
 
-	exports.default = sharedModule;
+	exports.default = channelsModule;
 
 /***/ },
 /* 228 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+	channelsRoutes.$inject = ['$stateProvider'];
+
+	function channelsRoutes($stateProvider) {
+
+	   $stateProvider.state('channels', {
+	      url: '/channels',
+	      template: '<channels></channels>',
+	      resolve: {
+	         /* channels: ['Channels', function (Channels) {
+	             return Channels.$loaded();
+	          }],*/
+	         profile: ['$state', 'AuthService', 'ProfileService', function ($state, AuthService, ProfileService) {
+	            return AuthService.$requireAuth().then(function (auth) {
+	               return ProfileService.getProfile(auth.uid).$loaded().then(function (profile) {
+	                  if (profile.displayName) {
+	                     return profile;
+	                  } else {
+	                     $state.go('profile');
+	                  }
+	               });
+	            }, function (error) {
+	               $state.go('home');
+	            });
+	         }]
+	      }
+	   });
+	}
+
+	exports.default = channelsRoutes;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _channels = __webpack_require__(230);
+
+	var _channels2 = _interopRequireDefault(_channels);
+
+	__webpack_require__(231);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var channelsComponent = {
+	   template: _channels2.default,
+	   controller: 'ChannelsController',
+	   bindings: {}
+	};
+
+	exports.default = channelsComponent;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n   <h1>{{ $ctrl.name }}</h1>\n</div>\n";
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(232);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(223)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./channels.styl", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./channels.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(222)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".channels {\n  color: #f00;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ChannelsController = function ChannelsController() {
+	   _classCallCheck(this, ChannelsController);
+
+	   this.name = 'channels';
+	};
+
+	ChannelsController.$inject = [];
+
+	exports.default = ChannelsController;
+
+/***/ },
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25077,7 +25218,35 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _base = __webpack_require__(229);
+	var _controllers = __webpack_require__(235);
+
+	var _controllers2 = _interopRequireDefault(_controllers);
+
+	var _services = __webpack_require__(237);
+
+	var _services2 = _interopRequireDefault(_services);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var sharedModule = _angular2.default.module('app.shared', [_controllers2.default.name, _services2.default.name]);
+
+	exports.default = sharedModule;
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _base = __webpack_require__(236);
 
 	var _base2 = _interopRequireDefault(_base);
 
@@ -25088,7 +25257,7 @@
 	exports.default = controllersModule;
 
 /***/ },
-/* 229 */
+/* 236 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25128,7 +25297,7 @@
 	exports.default = BaseController;
 
 /***/ },
-/* 230 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25141,7 +25310,7 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _auth = __webpack_require__(231);
+	var _auth = __webpack_require__(238);
 
 	var _auth2 = _interopRequireDefault(_auth);
 
@@ -25152,7 +25321,7 @@
 	exports.default = servicesModule;
 
 /***/ },
-/* 231 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
