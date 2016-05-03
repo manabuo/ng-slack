@@ -4,7 +4,9 @@ import './channels.styl';
 let channelsComponent =  {
    template,
    controller: 'ChannelsController',
-   bindings: {}
+   bindings: {
+      profile: '<'
+   }
 };
 
 export default channelsComponent;

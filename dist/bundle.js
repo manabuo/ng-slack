@@ -25086,7 +25086,12 @@
 
 	   $stateProvider.state('channels', {
 	      url: '/channels',
-	      template: '<channels></channels>',
+	      controller: ['profile', function (profile) {
+	         var self = this;
+	         self.profile = profile;
+	      }],
+	      controllerAs: '$ctrl',
+	      template: '<channels profile="$ctrl.profile"></channels>',
 	      resolve: {
 	         /* channels: ['Channels', function (Channels) {
 	             return Channels.$loaded();
@@ -25131,7 +25136,9 @@
 	var channelsComponent = {
 	   template: _channels2.default,
 	   controller: 'ChannelsController',
-	   bindings: {}
+	   bindings: {
+	      profile: '<'
+	   }
 	};
 
 	exports.default = channelsComponent;
@@ -25140,7 +25147,7 @@
 /* 230 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n   <h1>{{ $ctrl.name }}</h1>\n</div>\n";
+	module.exports = "<sidebar display-name=\"$ctrl.profile.displayName\"\n         logout=\"$ctrl.logout()\">\n\n</sidebar>\n";
 
 /***/ },
 /* 231 */
@@ -25192,15 +25199,49 @@
 	   value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var ChannelsController = function ChannelsController() {
-	   _classCallCheck(this, ChannelsController);
+	var _baseCtrl = new WeakMap(),
+	    _AuthService = new WeakMap(),
+	    _ProfileService = new WeakMap();
 
-	   this.name = 'channels';
-	};
+	var ChannelsController = function () {
+	   function ChannelsController(AuthService, ProfileService, $scope, $controller) {
+	      _classCallCheck(this, ChannelsController);
 
-	ChannelsController.$inject = [];
+	      var baseCtrl = $controller('BaseController', { $scope: $scope });
+	      _AuthService.set(this, AuthService);
+	      _ProfileService.set(this, ProfileService);
+	      _baseCtrl.set(this, baseCtrl);
+
+	      console.log('this');
+	      console.log(this);
+	   }
+
+	   _createClass(ChannelsController, [{
+	      key: 'logout',
+	      value: function logout() {
+
+	         var baseCtrl = _baseCtrl.get(this),
+	             AuthService = _AuthService.get(this);
+
+	         AuthService.$unauth();
+	         baseCtrl.goBack('home');
+	      }
+	   }, {
+	      key: 'getGravatar',
+	      value: function getGravatar(uid) {
+	         var ProfileService = _ProfileService.get(this);
+	         return ProfileService.getGravatar(uid);
+	      }
+	   }]);
+
+	   return ChannelsController;
+	}();
+
+	ChannelsController.$inject = ['AuthService', 'ProfileService', '$scope', '$controller'];
 
 	exports.default = ChannelsController;
 
@@ -25226,9 +25267,13 @@
 
 	var _services2 = _interopRequireDefault(_services);
 
+	var _widgets = __webpack_require__(239);
+
+	var _widgets2 = _interopRequireDefault(_widgets);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var sharedModule = _angular2.default.module('app.shared', [_controllers2.default.name, _services2.default.name]);
+	var sharedModule = _angular2.default.module('app.shared', [_controllers2.default.name, _services2.default.name, _widgets2.default.name]);
 
 	exports.default = sharedModule;
 
@@ -25349,6 +25394,156 @@
 	AuthService.$inject = ['$q', '$firebaseAuth', 'FIREBASE_URL'];
 
 	exports.default = AuthService;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	      value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _sidebar = __webpack_require__(240);
+
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var widgetsModule = _angular2.default.module('app.shared.widgets', [_sidebar2.default.name]);
+
+	exports.default = widgetsModule;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _angular = __webpack_require__(192);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _sidebarComponent = __webpack_require__(241);
+
+	var _sidebarComponent2 = _interopRequireDefault(_sidebarComponent);
+
+	var _sidebarController = __webpack_require__(245);
+
+	var _sidebarController2 = _interopRequireDefault(_sidebarController);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var sidebarModule = _angular2.default.module('app.shared.widgets.sidebar', []).component('sidebar', _sidebarComponent2.default).controller('SidebarController', _sidebarController2.default);
+
+	exports.default = sidebarModule;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	var _sidebar = __webpack_require__(242);
+
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+
+	__webpack_require__(243);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var sidebarComponent = {
+	   template: _sidebar2.default,
+	   controller: 'SidebarController',
+	   bindings: {
+	      displayName: '<',
+	      logout: '&',
+	      editProfile: '&'
+	   }
+	};
+
+	exports.default = sidebarComponent;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"main\">\n   <div class=\"sidebar\">\n\n      <div class=\"slack-name\">\n         <h2>ng-slack</h2>\n      </div>\n\n      <div class=\"channel-list\">\n         <div class=\"list-head\">Channels</div>\n      </div>\n\n      <div class=\"my-info\">\n         <img class=\"user-pic\" ng-src=\"{{ $ctrl.getGravatar($ctrl.profile.$id) }}\" />\n         <div class=\"user-info\">\n            <div class=\"user-name\">\n               <span ng-bind=\"::$ctrl.displayName\"></span>\n            </div>\n\n            <div class=\"options\">\n               <a ui-sref=\"profile\">edit profile</a>\n               /\n               <a href ng-click=\"$ctrl.logout()\">logout</a>\n            </div>\n         </div>\n      </div>\n\n   </div>\n</div>";
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(244);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(223)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./sidebar.styl", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./sidebar.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(222)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".sidebar {\n  color: #f00;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 245 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var SidebarController = function SidebarController() {
+	   _classCallCheck(this, SidebarController);
+
+	   this.name = 'sidebar';
+	};
+
+	SidebarController.$inject = [];
+
+	exports.default = SidebarController;
 
 /***/ }
 /******/ ]);

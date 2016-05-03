@@ -5,7 +5,12 @@ function channelsRoutes($stateProvider) {
    $stateProvider
       .state('channels', {
          url: '/channels',
-         template: '<channels></channels>',
+         controller: ['profile', function (profile) {
+            let self = this;
+            self.profile = profile;
+         }],
+         controllerAs: '$ctrl',
+         template: `<channels profile="$ctrl.profile"></channels>`,
          resolve: {
            /* channels: ['Channels', function (Channels) {
                return Channels.$loaded();

@@ -4,7 +4,11 @@ import './sidebar.styl';
 let sidebarComponent =  {
    template,
    controller: 'SidebarController',
-   bindings: {}
+   bindings: {
+      displayName: '<',
+      logout: '&',
+      editProfile: '&'
+   }
 };
 
 export default sidebarComponent;
