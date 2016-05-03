@@ -1,10 +1,12 @@
-let _baseCtrl    = new WeakMap();
+let _baseCtrl    = new WeakMap(),
+    _AuthService = new WeakMap();
 
 class LoginController {
 
    constructor(AuthService, $scope, $controller) {
+
       let baseCtrl = $controller('BaseController', {$scope});
-      this.AuthService = AuthService;
+      _AuthService.set(this, AuthService);
       _baseCtrl.set(this, baseCtrl);
 
       this.user = {
@@ -15,18 +17,26 @@ class LoginController {
    }
 
    login() {
-      let baseCtrl = _baseCtrl.get(this);
-      this.AuthService.$authWithPassword(this.user).then(login => {
+
+      let baseCtrl    = _baseCtrl.get(this),
+          AuthService = _AuthService.get(this);
+
+      AuthService.$authWithPassword(this.user).then(login => {
          baseCtrl.goBack('home');
       }, error => this.error = error);
+
    }
 
    register() {
-      this.AuthService.$createUser(this.user).then(user => {
+
+      let AuthService = _AuthService.get(this);
+
+      AuthService.$createUser(this.user).then(user => {
          console.log('user');
          console.log(user);
          this.login();
       }, error => this.error = error);
+
    }
 
    goBack() {

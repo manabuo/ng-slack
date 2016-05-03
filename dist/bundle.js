@@ -24016,14 +24016,15 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _baseCtrl = new WeakMap();
+	var _baseCtrl = new WeakMap(),
+	    _AuthService = new WeakMap();
 
 	var LoginController = function () {
 	   function LoginController(AuthService, $scope, $controller) {
 	      _classCallCheck(this, LoginController);
 
 	      var baseCtrl = $controller('BaseController', { $scope: $scope });
-	      this.AuthService = AuthService;
+	      _AuthService.set(this, AuthService);
 	      _baseCtrl.set(this, baseCtrl);
 
 	      this.user = {
@@ -24037,8 +24038,10 @@
 	      value: function login() {
 	         var _this = this;
 
-	         var baseCtrl = _baseCtrl.get(this);
-	         this.AuthService.$authWithPassword(this.user).then(function (login) {
+	         var baseCtrl = _baseCtrl.get(this),
+	             AuthService = _AuthService.get(this);
+
+	         AuthService.$authWithPassword(this.user).then(function (login) {
 	            baseCtrl.goBack('home');
 	         }, function (error) {
 	            return _this.error = error;
@@ -24049,7 +24052,9 @@
 	      value: function register() {
 	         var _this2 = this;
 
-	         this.AuthService.$createUser(this.user).then(function (user) {
+	         var AuthService = _AuthService.get(this);
+
+	         AuthService.$createUser(this.user).then(function (user) {
 	            console.log('user');
 	            console.log(user);
 	            _this2.login();
