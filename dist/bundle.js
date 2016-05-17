@@ -24167,7 +24167,7 @@
 /* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"page-wrapper\">\n\n  <div class=\"page-header\">\n    <h1><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\" /> Welcome to ng-Slack</h1>\n  </div>\n\n  <p class=\"text-center\">\n    <a ui-sref=\"login\" class=\"btn btn-lg btn-default\">Login</a> or <a ui-sref=\"register\" class=\"btn btn-lg btn-primary\">Register</a>\n  </p>\n\n</div>\n";
+	module.exports = "<div class=\"page-wrapper\">\n\n   <div class=\"page-header\">\n      <h1><img class=\"logo-img\" src=\"" + __webpack_require__(208) + "\"/> Welcome to ng-Slack</h1>\n   </div>\n\n   <p class=\"text-center\">\n      <a ui-sref=\"login\" class=\"btn btn-lg btn-default\">Login</a>\n      or\n      <a ui-sref=\"register\" class=\"btn btn-lg btn-primary\">Register</a>\n   </p>\n\n</div>\n";
 
 /***/ },
 /* 215 */
@@ -25065,9 +25065,13 @@
 
 	var _channels6 = _interopRequireDefault(_channels5);
 
+	var _channels7 = __webpack_require__(246);
+
+	var _channels8 = _interopRequireDefault(_channels7);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var channelsModule = _angular2.default.module('channels', []).config(_channels2.default).component('channels', _channels4.default).controller('ChannelsController', _channels6.default);
+	var channelsModule = _angular2.default.module('channels', []).config(_channels2.default).component('channels', _channels4.default).controller('ChannelsController', _channels6.default).service('ChannelsService', _channels8.default);
 
 	exports.default = channelsModule;
 
@@ -25544,6 +25548,29 @@
 	SidebarController.$inject = [];
 
 	exports.default = SidebarController;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _firebase = __webpack_require__(226);
+
+	var _firebase2 = _interopRequireDefault(_firebase);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ChannelsService = function ChannelsService($firebaseArray, FIREBASE_URL) {
+	   _classCallCheck(this, ChannelsService);
+
+	   var ref = new _firebase2.default(FIREBASE_URL + '/channels');
+	   return $firebaseArray(ref);
+	};
+
+	ChannelsService.$inject = ['$firebaseArray', 'FIREBASE_URL'];
 
 /***/ }
 /******/ ]);
